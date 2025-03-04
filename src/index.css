@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased text-gray-900 bg-gradient-to-br from-gray-50 via-white to-gray-100 font-sans min-h-screen scroll-smooth;
+    background-image: 
+      radial-gradient(at 100% 0%, rgba(var(--primary-rgb), 0.05) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(var(--secondary-rgb), 0.05) 0px, transparent 50%);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight font-display bg-clip-text;
+  }
+
+  :root {
+    --primary-rgb: 17, 119, 230;
+    --secondary-rgb: 220, 38, 38;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply relative overflow-hidden bg-primary-600/90 text-white px-6 py-3 rounded-lg
+    transition-all duration-300 shadow-md hover:shadow-neon
+    hover:scale-[1.02] active:scale-[0.98] backdrop-blur-sm
+    before:absolute before:inset-0 before:bg-gradient-to-r 
+    before:from-transparent before:via-white/10 before:to-transparent
+    before:translate-x-[-200%] hover:before:translate-x-[200%] hover:bg-primary-700
+    before:transition-transform before:duration-1000 hover:text-white;
+  }
+
+  .btn-secondary {
+    @apply relative bg-white/90 backdrop-blur-glass text-primary-700 border border-primary-200 
+    px-6 py-3 rounded-lg transition-all duration-300 shadow-md hover:shadow-xl 
+    hover:scale-[1.02] active:scale-[0.98] hover:border-primary-300 hover:bg-primary-50/80
+    hover:text-primary-800 hover:shadow-neon-sm hover:border-primary-400;
+  }
+
+  .btn-outline {
+    @apply relative border-2 border-primary-600/80 text-primary-700 px-6 py-3 rounded-lg
+    transition-all duration-300 hover:bg-primary-50/50 hover:border-primary-700
+    hover:shadow-neon-sm hover:scale-[1.02] active:scale-[0.98] hover:text-primary-800;
+  }
+
+  .card {
+    @apply bg-white/90 backdrop-blur-glass rounded-xl shadow-md hover:shadow-lg 
+    transition-all duration-500 border border-white/20 hover:border-primary-200/50 
+    hover:scale-[1.01] hover:bg-gradient-to-br hover:from-white/90 hover:to-primary-50/30
+    group;
+  }
+
+  .input-primary {
+    @apply w-full px-4 py-2 border border-gray-200/80 rounded-lg focus:ring-2 focus:ring-primary-400/50
+    focus:border-primary-400/50 transition-all duration-300 bg-white/80 backdrop-blur-glass 
+    hover:border-primary-300/80 placeholder:text-gray-400 hover:shadow-inner
+    focus:shadow-neon;
+  }
+
+  .glass-panel {
+    @apply bg-white/90 backdrop-blur-glass rounded-xl shadow-lg border border-white/20
+    hover:shadow-xl transition-all duration-500;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent;
+  }
+
+  .gradient-bg {
+    @apply bg-gradient-to-br from-primary-600/90 to-primary-800 backdrop-blur-sm;
+  }
+}
+
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+}
+
+@layer utilities {
+  .animate-gradient-border {
+    animation: gradient-rotate 8s linear infinite;
+  }
+
+  .animate-shine {
+    animation: shine 2s infinite;
+    background: linear-gradient(
+      110deg,
+      transparent 33%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 66%
+    );
+    background-size: 300% 100%;
+  }
+
+  .animate-subtle-zoom {
+    animation: subtle-zoom 30s ease-in-out infinite alternate;
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .animate-fade-down {
+    animation: fade-down 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .animate-bounce-subtle {
+    animation: bounce-subtle 3s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .parallax {
+    transform: translateY(var(--parallax-offset, 0));
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(var(--gradient-angle), theme('colors.primary.700'), theme('colors.primary.500'), theme('colors.primary.700'));
+    border-radius: 0.5rem;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    background: white;
+    border-radius: 0.4rem;
+    z-index: 0;
+  }
+
+  .glass-card {
+    @apply bg-white/95 backdrop-blur-sm border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:rotate-1;
+  }
+}
+
+@keyframes gradient-rotate {
+  0% { --gradient-angle: 0deg; }
+  100% { --gradient-angle: 360deg; }
+}
+
+@keyframes shine {
+  to {
+    background-position: 100% 0;
+  }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes subtle-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0.3;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
